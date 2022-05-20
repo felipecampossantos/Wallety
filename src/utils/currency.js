@@ -68,5 +68,10 @@ export const currencies = [
         name: 'Bitcoin',
         symbol: '₿'
     },
+    {
+        id: '9',
+        name: 'Brazilian Real',
+        symbol: 'R$'
+    },
 ]
 
