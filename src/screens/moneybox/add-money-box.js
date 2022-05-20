@@ -13,10 +13,12 @@ import { insertMoneyBox, updateMoneyBox } from '../../dbHelpers/moneyboxHelper';
 import Button from '../../components/Button';
 import BackHeader from '../../components/Headers/BackHeader';
 
+import Toast from 'react-native-toast-message';
+
 const AddMoneyBox = ({ navigation, route }) => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState(null);
   const [total, setTotal] = useState(0);
-  const [collected, setCollected] = useState('');
+  const [collected, setCollected] = useState(0);
 
   useEffect(() => {
     if (route.params?.item) {
@@ -51,9 +53,34 @@ const AddMoneyBox = ({ navigation, route }) => {
       __update();
     }
     else {
-      __insert();
+      let { isValid, errorMessage } = areParamsValid()
+      if (!isValid) {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: errorMessage
+        });
+      } else {
+        // only inserts when it doesnt have errors
+        __insert();
+      }
     }
     navigation.goBack();
+  }
+
+  const areParamsValid = () => {
+    let valid = true;
+    let errorMessage = ``;
+
+    if (!name) {
+      valid = false;
+      errorMessage = `Name can't be empty.`
+    }
+
+    if (total == 0) {
+      valid = false;
+      errorMessage = `Total can't be zero.`
+    }
   }
 
   return (

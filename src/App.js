@@ -10,6 +10,8 @@ import { Colors } from './styles';
 import RootNavigator from './navigations';
 import AuthProvider from './context/AuthProvider';
 
+import Toast from 'react-native-toast-message';
+
 const App = () => {
   return (
     <AuthProvider>
@@ -17,6 +19,7 @@ const App = () => {
         <StatusBar StatusBarStyle='light-content' backgroundColor={Colors.BLACK} />
         <RootNavigator />
       </SafeAreaView>
+      <Toast />
     </AuthProvider>
   );
 };
